@@ -6,6 +6,7 @@ import Login from "./login/Login";
 import SignUp from "./signup/SignUp";
 import Profile from "./dashboard/profile/Profile";
 import AllPosts from "./dashboard/allposts/AllPosts";
+import ErrorPage from "./error/ErrorPage";
 function App() {
   return (
     <>
@@ -17,6 +18,7 @@ function App() {
           <Route index element={<AllPosts />} />
           <Route path="profile" element={<Profile />} />
         </Route>
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
   );
