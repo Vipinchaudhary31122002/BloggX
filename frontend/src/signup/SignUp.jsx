@@ -38,7 +38,7 @@ const Signup = () => {
         username.length !== 0
       ) {
         const res = await axios.post(
-          "http://localhost:4000/api/v1/auth/signup",
+          "api/v1/auth/signup",
           { email, password, username },
           { withCredentials: true }
         );

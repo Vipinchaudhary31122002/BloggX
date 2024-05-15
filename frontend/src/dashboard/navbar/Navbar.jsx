@@ -12,6 +12,9 @@ const Navbar = () => {
         <Link to="profile" className="btn btn-primary p-1">
           Profile
         </Link>
+        <Link to="/" className="btn btn-primary p-1">
+          Logout
+        </Link>
       </div>
     </nav>
   );

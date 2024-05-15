@@ -2,8 +2,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 // importing routes
-// import AuthRoute from "./routes/AuthRoute.js";
-// import ResumeRoute from "./routes/ResumeRoute.js";
+import AuthRoute from "./routes/AuthRoute.js";
 const app = express();
 
 app.use(
@@ -18,7 +17,6 @@ app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 
 app.use(cookieParser());
 // routes declaration
-// app.use("/api/v1/auth", AuthRoute);
-// app.use("/api/v1/resumes", ResumeRoute);
+app.use("/api/v1/auth", AuthRoute);
 
 export default app;

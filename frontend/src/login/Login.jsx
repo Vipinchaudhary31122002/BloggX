@@ -34,7 +34,7 @@ const Login = () => {
     try {
       if (email.length !== 0 && password.length !== 0) {
         const res = await axios.post(
-          "http://localhost:4000/api/v1/auth/Login",
+          "/api/v1/auth/Login",
           { email, password },
           { withCredentials: true }
         );
