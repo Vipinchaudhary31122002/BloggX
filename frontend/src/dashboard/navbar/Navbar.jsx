@@ -5,7 +5,7 @@ const Navbar = () => {
       className="navbar navbar-expand-lg bg-body-tertiary bg-dark border-bottom border-body"
       data-bs-theme="dark"
     >
-      <div className="container-fluid p-2" id="NavbarContainer">
+      <div className="container-fluid" id="NavbarContainer">
         <Link to="/dashboard" className="btn btn-primary p-1">
           Dashboard
         </Link>

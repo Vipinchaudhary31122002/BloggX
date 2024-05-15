@@ -3,12 +3,12 @@ import "./Dashboard.css";
 import { Outlet } from "react-router-dom";
 const dashboard = () => {
   return (
-    <div id="DashboardContainer">
-      <Navbar />
-      <div className="container">
+    <>
+      <div id="DashboardContainer" className="container-fluid">
+        <Navbar />
         <Outlet />
       </div>
-    </div>
+    </>
   );
 };
 
