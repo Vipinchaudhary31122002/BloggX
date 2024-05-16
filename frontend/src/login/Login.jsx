@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import "./LogIn.css";
 const DisplaySuccess = (text) => toast.success(text);
 const DisplayError = (text) => toast.error(text);
 
@@ -34,7 +33,7 @@ const Login = () => {
     try {
       if (email.length !== 0 && password.length !== 0) {
         const res = await axios.post(
-          "/api/v1/auth/Login",
+          "/api/v1/auth/login",
           { email, password },
           { withCredentials: true }
         );

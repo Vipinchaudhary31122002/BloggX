@@ -9,12 +9,14 @@ const Navbar = () => {
         <Link to="/dashboard" className="btn btn-primary p-1">
           Dashboard
         </Link>
-        <Link to="profile" className="btn btn-primary p-1">
-          Profile
-        </Link>
-        <Link to="/" className="btn btn-primary p-1">
-          Logout
-        </Link>
+        <div>
+          <Link to="profile" className="btn btn-primary p-1 m-1">
+            Profile
+          </Link>
+          <Link to="/" className="btn btn-primary p-1 m-1">
+            Logout
+          </Link>
+        </div>
       </div>
     </nav>
   );

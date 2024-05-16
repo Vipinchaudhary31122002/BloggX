@@ -7,9 +7,11 @@ import SignUp from "./signup/SignUp";
 import Profile from "./dashboard/profile/Profile";
 import AllPosts from "./dashboard/allposts/AllPosts";
 import ErrorPage from "./error/ErrorPage";
+import NotificationIndicator from "./utils/NotificationIndicator";
 function App() {
   return (
     <>
+      <NotificationIndicator />
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
         <Route exact path="/signup" element={<SignUp />} />

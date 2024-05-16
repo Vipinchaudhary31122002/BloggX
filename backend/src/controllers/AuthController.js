@@ -25,47 +25,50 @@ export const Login = async (req, res, next) => {
     if (!user) {
       return res.json({ message: "Incorrect email" });
     }
-    const auth = await bcrypt.compare(password, user.password);
+    const auth = password === user.password;
+    // const auth = await bcrypt.compare(password, user.password);
     if (!auth) {
       return res.json({ message: "Incorrect password" });
     }
-    sendToken(user, 200, res);
+    // sendToken(user, 200, res);
+    res.status(201).json({ mesage: "successfully login", success: true });
     next();
   } catch (error) {
     console.error(error);
   }
 };
 
-export const ForgotPassword = async (req, res, next) => {
-  try {
-    const { email, newpassword } = req.body;
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.json({ message: "Incorrect password or email" });
-    }
-    user.password = await bcrypt.hash(newpassword, 12);
-    await user.save();
-    const token = createSecretToken(user._id);
-    res.cookie("token", token, {
-      withCredentials: true,
-      httpOnly: false,
-    });
-    res
-      .status(201)
-      .json({ message: "password changed successfully", success: true });
-    next();
-  } catch (error) {
-    console.error(error);
-  }
-};
+// export const ForgotPassword = async (req, res, next) => {
+//   try {
+//     const { email, newpassword } = req.body;
+//     console.log(req.body);
+//     const user = await User.findOne({ email });
+//     if (!user) {
+//       return res.json({ message: "Incorrect password or email" });
+//     }
+//     // user.password = await bcrypt.hash(newpassword, 12);
+//     await user.save();
+//     // const token = createSecretToken(user._id);
+//     // res.cookie("token", token, {
+//     //   withCredentials: true,
+//     //   httpOnly: false,
+//     // });
+//     res
+//       .status(201)
+//       .json({ message: "password changed successfully", success: true });
+//     next();
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
-export const Logout = async (req, res, next) => {
-  res.cookie("token", null, {
-    expires: new Date(Date.now()),
-    httpOnly: true,
-  });
-  res.status(200).json({
-    success: true,
-    message: "Logged Out",
-  });
-};
+// export const Logout = async (req, res, next) => {
+//   res.cookie("token", null, {
+//     expires: new Date(Date.now()),
+//     httpOnly: true,
+//   });
+//   res.status(200).json({
+//     success: true,
+//     message: "Logged Out",
+//   });
+// };

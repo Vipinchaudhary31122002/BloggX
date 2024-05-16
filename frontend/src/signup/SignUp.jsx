@@ -68,24 +68,22 @@ const Signup = () => {
           name="username"
           value={username}
           className="form-control-lg"
-          id="exampleFormControlInput1"
-          onSubmit={handleOnChange}
+          onChange={handleOnChange}
           placeholder="Enter your username"
         />
         <input
           type="email"
           name="email"
           value={email}
-          onSubmit={handleOnChange}
+          onChange={handleOnChange}
           className="form-control-lg"
-          id="exampleFormControlInput1"
           placeholder="Enter your email"
         />
         <input
           name="password"
           value={password}
           type="password"
-          onSubmit={handleOnChange}
+          onChange={handleOnChange}
           id="inputPassword5"
           className="form-control-lg"
           placeholder="Enter password"
