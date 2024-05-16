@@ -37,6 +37,7 @@ const Login = () => {
           { email, password },
           { withCredentials: true }
         );
+        console.log(res);
         if (
           res.data.message === "Incorrect email" ||
           res.data.message === "Incorrect password"
@@ -46,7 +47,9 @@ const Login = () => {
         } else {
           navigate("/dashboard");
           resetObject();
-          DisplaySuccess("Welcome to OpenResumeBuilder");
+          DisplaySuccess("Welcome to IndutechTask");
+          const cookieHeader = res.headers.get("Set-Cookie");
+          document.cookie = cookieHeader;
         }
       } else {
         DisplayError("All field are required!");

@@ -30,7 +30,6 @@ export const Login = async (req, res, next) => {
       return res.json({ message: "Incorrect password" });
     }
     sendToken(user, 200, res);
-    res.status(201).json({ mesage: "successfully login", success: true });
     next();
   } catch (error) {
     console.error(error);
@@ -38,7 +37,12 @@ export const Login = async (req, res, next) => {
 };
 
 export const Logout = async (req, res, next) => {
-  res.cookie("token", "").json({ message: "logout successful" });
+  res
+    .cookie("token", null, {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+    })
+    .json({ message: "logout successful" });
 };
 
 // logout other code

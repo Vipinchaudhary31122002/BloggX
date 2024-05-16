@@ -1,7 +1,7 @@
 import { Post } from "../models/PostModel.js";
 
 export const CreatePost = async (req, res, next) => {
-  try {
+  try { 
     const { title, content } = req.body;
     await Post.create({ title, content });
     res

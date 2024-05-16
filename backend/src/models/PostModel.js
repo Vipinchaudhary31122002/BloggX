@@ -10,14 +10,17 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    // cover: {
+    likes: {
+      type: Number,
+    },
+    // img_url: {
     //   type: String,
     // },
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
+    // userId: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "User",
+    //   required: true,
+    // },
     createdAt: {
       type: Date,
       default: new Date(),

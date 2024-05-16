@@ -34,9 +34,13 @@ userSchema.pre("save", async function (next) {
 });
 
 userSchema.methods.getJWTToken = function () {
-  return jwt.sign({ id: this._id }, SECRET_TOKEN_KEY, {
-    expiresIn: COOKIE_EXPIRE,
-  });
+  return jwt.sign(
+    { id: this._id, username: this.username, email: this.email },
+    SECRET_TOKEN_KEY,
+    {
+      expiresIn: COOKIE_EXPIRE,
+    }
+  );
 };
 
 export const User = mongoose.model("User", userSchema);
@@ -44,7 +48,6 @@ export const User = mongoose.model("User", userSchema);
 // userSchema.methods.comparePassword = async function (password) {
 //   return await bcrypt.compare(password, this.password);
 // };
-
 
 // userSchema.methods.getResetPasswordToken = function () {
 //   const resetToken = crypto.randomBytes(20).toString("hex");
