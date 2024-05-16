@@ -1,21 +1,22 @@
 import mongoose from "mongoose";
 // import bcrypt from "bcrypt";
-import { COOKIE_EXPIRE, SECRET_TOKEN_KEY } from "../constants.js";
-import jwt from "jsonwebtoken";
+// import { COOKIE_EXPIRE, SECRET_TOKEN_KEY } from "../constants.js";
+// import jwt from "jsonwebtoken";
 const userSchema = new mongoose.Schema(
   {
     email: {
       type: String,
-      required: [true, "Your email address is required"],
+      required: true,
       unique: true,
     },
     username: {
       type: String,
-      required: [true, "Your username is required"],
+      required: true,
     },
     password: {
       type: String,
-      required: [true, "Your password is required"],
+      min: 4,
+      required: true,
     },
     createdAt: {
       type: Date,
@@ -29,7 +30,7 @@ const userSchema = new mongoose.Schema(
 //   if (!this.isModified("password")) {
 //     next();
 //   }
-  //   this.password = await bcrypt.hash(this.password, 10);
+//   this.password = await bcrypt.hash(this.password, 10);
 // });
 
 // userSchema.methods.getJWTToken = function () {
@@ -39,7 +40,7 @@ const userSchema = new mongoose.Schema(
 // };
 
 // userSchema.methods.comparePassword = async function (password) {
-  //   return await bcrypt.compare(password, this.password);
+//   return await bcrypt.compare(password, this.password);
 // };
 
 // userSchema.methods.getResetPasswordToken = function () {
