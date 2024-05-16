@@ -1,6 +1,6 @@
 import { sendToken } from "../utils/SecretToken.js";
 import { User } from "../models/UserModel.js";
-// import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 export const Signup = async (req, res, next) => {
   try {
@@ -25,12 +25,11 @@ export const Login = async (req, res, next) => {
     if (!user) {
       return res.json({ message: "Incorrect email" });
     }
-    const auth = password === user.password;
-    // const auth = await bcrypt.compare(password, user.password);
+    const auth = await bcrypt.compare(password, user.password);
     if (!auth) {
       return res.json({ message: "Incorrect password" });
     }
-    // sendToken(user, 200, res);
+    sendToken(user, 200, res);
     res.status(201).json({ mesage: "successfully login", success: true });
     next();
   } catch (error) {
@@ -38,6 +37,21 @@ export const Login = async (req, res, next) => {
   }
 };
 
+export const Logout = async (req, res, next) => {
+  res.cookie("token", "").json({ message: "logout successful" });
+};
+
+// logout other code
+// res.cookie("token", null, {
+//   expires: new Date(Date.now()),
+//   httpOnly: true,
+// });
+// res.status(200).json({
+//   success: true,
+//   message: "Logged Out",
+// });
+
+// forgot password code
 // export const ForgotPassword = async (req, res, next) => {
 //   try {
 //     const { email, newpassword } = req.body;
@@ -60,15 +74,4 @@ export const Login = async (req, res, next) => {
 //   } catch (error) {
 //     console.error(error);
 //   }
-// };
-
-// export const Logout = async (req, res, next) => {
-//   res.cookie("token", null, {
-//     expires: new Date(Date.now()),
-//     httpOnly: true,
-//   });
-//   res.status(200).json({
-//     success: true,
-//     message: "Logged Out",
-//   });
 // };
