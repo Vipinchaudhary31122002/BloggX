@@ -1,10 +1,11 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
 // import multer from "multer";
 // import fs from "fs";
 // import path from "path";
-import { fileURLToPath } from "url";
+// import { fileURLToPath } from "url";
 
 // importing routes
 import AuthRoute from "./routes/AuthRoute.js";
@@ -14,10 +15,9 @@ import PostsRoute from "./routes/PostsRoute.js";
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);
 // const uploadmiddleware = multer({ dest: "uploads/" });
-
-const app = express();
 // app.use("/uploads", express.static(__dirname + "/uploads"));
 
+const app = express();
 app.use(
   cors({
     origin: ["http://localhost:5173"],
@@ -25,10 +25,10 @@ app.use(
     credentials: true,
   })
 );
-app.use(express.json({ limit: "16kb" }));
-app.use(express.urlencoded({ extended: true, limit: "16kb" }));
-
+app.use(bodyParser.urlencoded({ extended: true, limit: "16kb" }));
+app.use(bodyParser.json({ limit: "16kb" }));
 app.use(cookieParser());
+
 // routes declaration
 app.use("/api/v1/auth", AuthRoute);
 app.use("/api/v1/post", PostsRoute);

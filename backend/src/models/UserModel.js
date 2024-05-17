@@ -38,7 +38,7 @@ userSchema.methods.getJWTToken = function () {
     { id: this._id, username: this.username, email: this.email },
     SECRET_TOKEN_KEY,
     {
-      expiresIn: COOKIE_EXPIRE,
+      expiresIn: COOKIE_EXPIRE * 24 * 60 * 60 * 1000,
     }
   );
 };
