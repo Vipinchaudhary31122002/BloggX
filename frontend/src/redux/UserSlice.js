@@ -1,36 +1,37 @@
-// import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-// export const UserSlice = createSlice({
-//   name: "user",
-//   initialState: {
-//     username: "",
-//     email: "",
-//     authenticated: false,
-//     posts: [
-//       {
-//         posttitle: "",
-//         postcontent: "",
-//         creationdate: "",
-//         like: "",
-//         comments: [
-//           {
-//             comment: "",
-//             username: "",
-//           },
-//         ],
-//       },
-//     ],
-//   },
-//   reducers: {
-//     SetUsername: (state, action) => {
-//       state.value += action.payload;
-//     },
-//     SetEmail: (state, action) => {
-//       state.value += action.payload;
-//     },
-//   },
-// });
+const initialState = {
+  userid: "",
+  username: "",
+  authenticated: false,
+  // posts: [
+  //   {
+  //     posttitle: "",
+  //     postcontent: "",
+  //     creationdate: "",
+  //     like: "",
+  //     comments: [
+  //       {
+  //         comment: "",
+  //         username: "",
+  //       },
+  //     ],
+  //   },
+  // ],
+};
 
-// export const { SetUsername, SetEmail } = UserSlice.actions;
+export const UserSlice = createSlice({
+  name: "user",
+  initialState,
+  reducers: {
+    SetUserData: (state, action) => {
+      state.userid = action.payload.userid;
+      state.username = action.payload.username;
+      state.authenticated = true;
+    },
+  },
+});
 
-// export default UserSlice.reducer;
+export const { SetUserData } = UserSlice.actions;
+
+export default UserSlice.reducer;

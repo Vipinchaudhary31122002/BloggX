@@ -9,12 +9,14 @@ const Navbar = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/api/v1/auth/logout", {
+      const res = await axios.get("/api/v1/auth/logout", {
         withCredentials: true,
       });
       if (res.data.message === "logout successful") {
         navigate("/");
         DisplaySuccess("Successfully logout");
+      } else if (res.data.message === "token not found") {
+        navigate("/login");
       } else {
         DisplayError("error generated on serverside while logging out");
       }

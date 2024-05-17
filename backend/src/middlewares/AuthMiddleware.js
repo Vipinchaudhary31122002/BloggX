@@ -8,7 +8,7 @@ export const userVerification = async (req, res, next) => {
     if (!token) {
       res.json({
         status: false,
-        message: "token is not avaible in request",
+        message: "token not found",
       });
     }
     const data = jwt.verify(token, SECRET_TOKEN_KEY);

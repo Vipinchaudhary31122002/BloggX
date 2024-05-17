@@ -3,10 +3,14 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { SetUserData } from "../redux/UserSlice.js";
+
 const DisplaySuccess = (text) => toast.success(text);
 const DisplayError = (text) => toast.error(text);
 
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
     email: "",
@@ -27,7 +31,6 @@ const Login = () => {
       [name]: value,
     });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -37,7 +40,6 @@ const Login = () => {
           { email, password },
           { withCredentials: true }
         );
-        console.log(res);
         if (
           res.data.message === "Incorrect email" ||
           res.data.message === "Incorrect password"
@@ -45,6 +47,7 @@ const Login = () => {
           resetObject();
           DisplayError("Invalid credentials! Please enter correct one");
         } else {
+          dispatch(SetUserData(res.data.user));
           navigate("/dashboard");
           resetObject();
           DisplaySuccess("Welcome to IndutechTask");
