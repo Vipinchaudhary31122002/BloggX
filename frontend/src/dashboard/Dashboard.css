@@ -1,9 +1,10 @@
 #DashboardContainer {
   background-color: black;
   padding: 0 !important;
-  min-height: max-content;
+  min-height: 100vh;
   color: white;
   height: max-content;
   display: flex;
   flex-direction: column;
+  font-size: larger;
 }

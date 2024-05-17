@@ -12,21 +12,23 @@ const postSchema = new mongoose.Schema(
     },
     likes: {
       type: Number,
+      default: 0
+    },
+    username: {
+      type: String,
+      required: true,
+      unique: true,
     },
     // img_url: {
     //   type: String,
     // },
-    // userId: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "User",
-    //   required: true,
-    // },
-    createdAt: {
-      type: Date,
-      default: new Date(),
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
   },
-  { collection: "Posts" }
+  { collection: "Posts", timestamps: true }
 );
 
 export const Post = mongoose.model("Post", postSchema);

@@ -6,7 +6,6 @@ const AllPosts = () => {
   useEffect(() => {
     axios.get("/api/v1/post/allpost").then((posts) => setPosts(posts.data));
   }, []);
-
   return (
     <div id="AllPostsContainer" className="container-fluid">
       <span className="badge text-bg-primary m-2 p-1 pb-0">
@@ -42,11 +41,11 @@ const AllPosts = () => {
                 </div>
                 <p className="card-text">
                   <small className="text-body-secondary">
-                    created by user
+                    created by
+                    <span className="card-title m-1 fw-bolder">{e.username}</span>
                   </small>
                 </p>
                 <p className="card-text">{e.content}</p>
-                
               </div>
             </div>
           ))}
@@ -56,7 +55,3 @@ const AllPosts = () => {
 };
 
 export default AllPosts;
-
-{
-  /* <img src="..." className="card-img-top" alt="..." /> */
-}

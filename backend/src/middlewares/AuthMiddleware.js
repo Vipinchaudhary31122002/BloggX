@@ -14,6 +14,7 @@ export const userVerification = async (req, res, next) => {
     const data = jwt.verify(token, SECRET_TOKEN_KEY);
     const user = await User.findById(data.id);
     if (user) {
+      req.userdata = user;
       next();
     } else {
       return res.json({

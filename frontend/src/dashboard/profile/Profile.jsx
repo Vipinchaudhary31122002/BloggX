@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -9,14 +10,14 @@ const Profile = () => {
   const [inputValue, setInputValue] = useState({
     title: "",
     content: "",
-    img_url: ""
+    img_url: "",
   });
   const { title, content, img_url } = inputValue;
   const resetObject = () => {
     const defaultObject = {
       title: "",
       content: "",
-      img_url: ""
+      img_url: "",
     };
     setInputValue(defaultObject);
   };
@@ -28,12 +29,11 @@ const Profile = () => {
     });
   };
   const handleSubmit = async (e) => {
-    console.log(title);
     e.preventDefault();
     try {
       if (title.length !== 0) {
         await axios.post(
-          "/api/v1/post/createpost",
+          "/api/v1/post/userpost",
           { title, content },
           { withCredentials: true }
         );
@@ -46,6 +46,10 @@ const Profile = () => {
       resetObject();
     }
   };
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    axios.get("/api/v1/post/userpost").then((posts) => setPosts(posts.data));
+  }, []);
   return (
     <div id="ProfileContainer" className="container-fluid">
       <div id="CreatePostForm" className="container">
@@ -67,7 +71,7 @@ const Profile = () => {
             placeholder="Enter post content"
             onChange={handleOnChange}
           ></textarea>
-          <div className="mb-3">
+          {/* <div className="mb-3">
             <label htmlFor="formFile" className="form-label">
               Choose image
             </label>
@@ -75,7 +79,7 @@ const Profile = () => {
             name="img_url"
             value={img_url}
             type="file" id="formFile" />
-          </div>
+          </div> */}
           <button className="btn btn-outline-primary btn-lg" type="submit">
             Create Post
           </button>
@@ -83,22 +87,25 @@ const Profile = () => {
       </div>
       <div id="UserAllPosts" className="container">
         {/* card for displaying post */}
-        <div className="card mb-3">
-          {/* <img src="..." className="card-img-top" alt="..." /> */}
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-            </p>
-            {/* <p className="card-text">
-              <small className="text-body-secondary">
-                Last updated 3 mins ago
-              </small>
-            </p> */}
-          </div>
-        </div>
+        {posts.length > 0 &&
+          posts.map((e) => (
+            <div className="card mb-3" key={e._id}>
+              <div className="card-body">
+                <div className="d-flex justify-content-between">
+                  <span className="card-title fw-bolder">{e.title}</span>
+                </div>
+                <p className="card-text">
+                  <small className="text-body-secondary">
+                    created by
+                    <span className="card-title m-1 fw-bolder">
+                      {e.username}
+                    </span>
+                  </small>
+                </p>
+                <p className="card-text">{e.content}</p>
+              </div>
+            </div>
+          ))}
       </div>
     </div>
   );
