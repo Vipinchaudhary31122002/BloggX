@@ -59,7 +59,7 @@ const Profile = () => {
   // delete post
   const deletepost = async (id) => {
     try {
-      await axios.get(`/api/v1/post/deletepost/${id}`);
+      await axios.delete(`/api/v1/post/deletepost/${id}`);
       await userpost();
       DisplaySuccess("post deleted");
     } catch (error) {

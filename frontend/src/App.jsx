@@ -10,6 +10,7 @@ import ErrorPage from "./error/ErrorPage";
 import NotificationIndicator from "./utils/NotificationIndicator";
 import LoadingIndicator from "./utils/LoadingIndicator.jsx";
 import UpdatePost from "./dashboard/updatepost/UpdatePost.jsx";
+import PostPage from "./dashboard/postpage/PostPage.jsx";
 
 const Dashboard = lazy(() => import("./dashboard/Dashboard.jsx"));
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/dashboard" element={<Dashboard />}>
             <Route index element={<AllPosts />} />
+            <Route path="post/:postid" element={<PostPage />} />
             <Route path="profile" element={<Profile />} />
             <Route path="updatepost" element={<UpdatePost />} />
           </Route>

@@ -1,4 +1,5 @@
 import { Post } from "../models/PostModel.js";
+import { Comment } from "../models/CommentModel.js";
 
 export const CreatePost = async (req, res) => {
   try {
@@ -48,17 +49,12 @@ export const UpdatedPost = async (req, res) => {
 
 export const UpdatePost = async (req, res) => {
   try {
-    const { postid } = req.params;
-    console.log(postid);
+    const postid = req.params.id;
     const { title, content } = req.body;
-    console.log(title);
-    // const updatedPost = await Post.updateOne({ _id: postid }, { $set: data });
-    // const { title, summary, content, id } = req.body;
-    const updatepost = await postmodel.findByIdAndUpdate(postid, {
+    const updatepost = await Post.findByIdAndUpdate(postid, {
       title,
       content,
     });
-    console.log(updatepost);
     if (updatepost) {
       res.status(200).json({ message: "Post updated successfully" });
     } else {
@@ -75,6 +71,33 @@ export const UserPost = async (req, res) => {
     const { id } = req.userdata;
     const userpost = await Post.find({ userId: id });
     res.status(201).json([...userpost]);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const AllComments = async (req, res) => {
+  try {
+    const { id } = req.userdata;
+    const userpost = await Post.find({ userId: id });
+    res.status(201).json([...userpost]);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const CreateComment = async (req, res) => {
+  try {
+    const comment = {
+      postId: req.body.id,
+      userId: req.userdata.id,
+      username: req.userdata.username,
+      comment: req.body.comment,
+    };
+    await Comment.create(comment);
+    res
+      .status(201)
+      .json({ message: "comment created successfully", success: true });
   } catch (error) {
     console.error(error);
   }

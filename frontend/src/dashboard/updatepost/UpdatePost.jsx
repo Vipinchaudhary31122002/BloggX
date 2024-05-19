@@ -11,14 +11,6 @@ const UpdatePost = () => {
   const postid = location.state.id;
   const [inputValue, setInputValue] = useState(location.state || {});
   const { title, content } = inputValue;
-  const resetObject = () => {
-    const defaultObject = {
-      title: "",
-      content: "",
-      img_url: "",
-    };
-    setInputValue(defaultObject);
-  };
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setInputValue({
@@ -36,9 +28,8 @@ const UpdatePost = () => {
           { title, content },
           { withCredentials: true }
         );
-        console.log("second message");
         await post();
-        DisplaySuccess("post created");
+        DisplaySuccess("post updated");
       } else DisplayError("Post title and content is required");
     } catch (error) {
       DisplayError("Some error occurred by connecting server!");
