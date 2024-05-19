@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 const DisplaySuccess = (text) => toast.success(text);
 const DisplayError = (text) => toast.error(text);
 
@@ -10,7 +11,7 @@ const Profile = () => {
   const [inputValue, setInputValue] = useState({
     title: "",
     content: "",
-    img_url: "",
+    // img_url: "",
   });
   const { title, content } = inputValue;
   const resetObject = () => {
@@ -29,7 +30,7 @@ const Profile = () => {
     });
   };
   // function for creating post
-  const handleSubmit = async (e) => {
+  const createpost = async (e) => {
     e.preventDefault();
     try {
       if (title.length !== 0) {
@@ -39,6 +40,7 @@ const Profile = () => {
           { withCredentials: true }
         );
         resetObject();
+        await userpost();
         DisplaySuccess("post created");
       } else DisplayError("Post title is required");
     } catch (error) {
@@ -49,14 +51,30 @@ const Profile = () => {
   };
   // function for fetching all the post of particular user
   const [posts, setPosts] = useState([]);
+  const userpost = async () => {
+    await axios
+      .get("/api/v1/post/userpost")
+      .then((posts) => setPosts(posts.data));
+  };
+  // delete post
+  const deletepost = async (id) => {
+    try {
+      await axios.get(`/api/v1/post/deletepost/${id}`);
+      await userpost();
+      DisplaySuccess("post deleted");
+    } catch (error) {
+      DisplayError("Some error genereated on server side while deleting post!");
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    axios.get("/api/v1/post/userpost").then((posts) => setPosts(posts.data));
+    userpost();
   }, []);
   return (
     <div id="ProfileContainer" className="container-fluid">
       <div id="CreatePostForm" className="container">
         {/* form for creating post */}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={createpost}>
           <input
             type="text"
             name="title"
@@ -92,19 +110,26 @@ const Profile = () => {
         {posts.length > 0 &&
           posts.map((e) => (
             <div className="card mb-3 container" key={e._id}>
+              <div className="card-header">
+                <span className="card-title fw-bolder">{e.title}</span>
+              </div>
               <div className="card-body">
-                <div className="d-flex justify-content-between">
-                  <span className="card-title fw-bolder">{e.title}</span>
-                </div>
-                <p className="card-text">
-                  <small className="text-body-secondary">
-                    created by
-                    <span className="card-title m-1 fw-bolder">
-                      {e.username}
-                    </span>
-                  </small>
-                </p>
                 <p className="card-text">{e.content}</p>
+              </div>
+              <div className="card-footer d-flex justify-content-between">
+                <button
+                  className="btn btn-outline-danger"
+                  onClick={() => deletepost(e._id)}
+                >
+                  Delete post
+                </button>
+                <Link
+                  to="/dashboard/updatepost"
+                  state={{ id: e._id, title: e.title, content: e.content }}
+                  className="btn btn-outline-primary"
+                >
+                  Update post
+                </Link>
               </div>
             </div>
           ))}
