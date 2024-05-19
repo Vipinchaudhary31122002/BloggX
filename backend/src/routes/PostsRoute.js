@@ -12,7 +12,7 @@ const router = Router();
 
 router.route("/createpost").post(userVerification, CreatePost);
 router.get("/allpost", AllPost);
-router.route("userpost").get(userVerification, UserPost);
+router.route("/userpost").get(userVerification, UserPost);
 // router.get("/deletepost", DeletePost);
 // router.put("/updatepost", UpdatePost);
 

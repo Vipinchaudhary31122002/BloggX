@@ -12,7 +12,7 @@ const Profile = () => {
     content: "",
     img_url: "",
   });
-  const { title, content, img_url } = inputValue;
+  const { title, content } = inputValue;
   const resetObject = () => {
     const defaultObject = {
       title: "",
@@ -28,12 +28,13 @@ const Profile = () => {
       [name]: value,
     });
   };
+  // function for creating post
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (title.length !== 0) {
         await axios.post(
-          "/api/v1/post/userpost",
+          "/api/v1/post/createpost",
           { title, content },
           { withCredentials: true }
         );
@@ -46,6 +47,7 @@ const Profile = () => {
       resetObject();
     }
   };
+  // function for fetching all the post of particular user
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     axios.get("/api/v1/post/userpost").then((posts) => setPosts(posts.data));
@@ -85,11 +87,11 @@ const Profile = () => {
           </button>
         </form>
       </div>
+      {/* container for card for displaying post */}
       <div id="UserAllPosts" className="container">
-        {/* card for displaying post */}
         {posts.length > 0 &&
           posts.map((e) => (
-            <div className="card mb-3" key={e._id}>
+            <div className="card mb-3 container" key={e._id}>
               <div className="card-body">
                 <div className="d-flex justify-content-between">
                   <span className="card-title fw-bolder">{e.title}</span>

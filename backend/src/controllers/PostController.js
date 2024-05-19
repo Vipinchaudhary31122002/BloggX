@@ -52,8 +52,8 @@ export const AllPost = async (req, res, next) => {
 
 export const UserPost = async (req, res) => {
   try {
-    const { userid } = req.userdata;
-    const userpost = await Post.find(userid);
+    const { id } = req.userdata;
+    const userpost = await Post.find({ userId: id });
     res.status(201).json([...userpost]);
   } catch (error) {
     console.error(error);
