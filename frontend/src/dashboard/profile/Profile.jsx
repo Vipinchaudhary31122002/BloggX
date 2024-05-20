@@ -1,6 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { useState } from "react";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 const DisplaySuccess = (text) => toast.success(text);
@@ -11,14 +10,14 @@ const Profile = () => {
   const [inputValue, setInputValue] = useState({
     title: "",
     content: "",
-    // img_url: "",
+    img_url: {},
   });
-  const { title, content } = inputValue;
+  const { title, content, img_url } = inputValue;
   const resetObject = () => {
     const defaultObject = {
       title: "",
       content: "",
-      img_url: "",
+      img_url: {},
     };
     setInputValue(defaultObject);
   };
@@ -29,6 +28,13 @@ const Profile = () => {
       [name]: value,
     });
   };
+  // const handleFileChange = (e) => {
+  //   console.log(e.target);
+  //   setInputValue({
+  //     ...inputValue,
+  //     img_url: e.target.files[0],
+  //   });
+  // };
   // function for creating post
   const createpost = async (e) => {
     e.preventDefault();
@@ -95,10 +101,14 @@ const Profile = () => {
             <label htmlFor="formFile" className="form-label">
               Choose image
             </label>
-            <input className="form-control" 
-            name="img_url"
-            value={img_url}
-            type="file" id="formFile" />
+            <input
+              className="form-control"
+              name="img_url"
+              type="file"
+              id="formFile"
+              onChange={handleFileChange}
+              accept="image/png, image/jpeg"
+            ></input>
           </div> */}
           <button className="btn btn-outline-primary btn-lg" type="submit">
             Create Post

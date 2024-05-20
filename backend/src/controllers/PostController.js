@@ -1,14 +1,16 @@
 import { Post } from "../models/PostModel.js";
 import { Comment } from "../models/CommentModel.js";
-
 export const CreatePost = async (req, res) => {
   try {
+    // console.log(req.body);
     const post = {
       title: req.body.title,
       content: req.body.content,
       userId: req.userdata,
       username: req.userdata.username,
+      // img_url: req.body.img_url.name,
     };
+    console.log(post.img_url);
     await Post.create(post);
     res
       .status(201)
@@ -78,9 +80,9 @@ export const UserPost = async (req, res) => {
 
 export const AllComments = async (req, res) => {
   try {
-    const { id } = req.userdata;
-    const userpost = await Post.find({ userId: id });
-    res.status(201).json([...userpost]);
+    const { id } = req.params;
+    const postcomment = await Comment.find({ postId: id });
+    res.status(201).json([...postcomment]);
   } catch (error) {
     console.error(error);
   }
@@ -99,6 +101,12 @@ export const CreateComment = async (req, res) => {
       .status(201)
       .json({ message: "comment created successfully", success: true });
   } catch (error) {
+    if (error.code === 11000) {
+      res.json({
+        message:
+          "Duplicate comment error: User has already commented on this post.",
+      });
+    }
     console.error(error);
   }
 };

@@ -7,7 +7,7 @@ import {
   UpdatePost,
   UserPost,
   CreateComment,
-  AllComments
+  AllComments,
 } from "../controllers/PostController.js";
 import { userVerification } from "../middlewares/AuthMiddleware.js";
 

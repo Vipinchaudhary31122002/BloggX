@@ -2,10 +2,10 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
-// import multer from "multer";
-// import fs from "fs";
-// import path from "path";
-// import { fileURLToPath } from "url";
+import multer from "multer";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 // importing routes
 import AuthRoute from "./routes/AuthRoute.js";
@@ -14,10 +14,10 @@ import PostsRoute from "./routes/PostsRoute.js";
 // accessing file and folder in backend for image handling
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);
-// const uploadmiddleware = multer({ dest: "uploads/" });
-// app.use("/uploads", express.static(__dirname + "/uploads"));
+// export const uploadmiddleware = multer({ dest: "uploads/" });
 
 const app = express();
+// app.use("/uploads", express.static(__dirname + "/uploads"));
 app.use(
   cors({
     origin: ["http://localhost:5173"],

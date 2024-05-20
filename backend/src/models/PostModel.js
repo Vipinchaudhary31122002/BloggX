@@ -12,16 +12,16 @@ const postSchema = new mongoose.Schema(
     },
     likes: {
       type: Number,
-      default: 0
+      default: 0,
     },
     username: {
       type: String,
       required: true,
       unique: true,
     },
-    // img_url: {
-    //   type: String,
-    // },
+    img_url: {
+      type: Object,
+    },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

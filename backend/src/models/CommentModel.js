@@ -14,15 +14,17 @@ const commentSchema = new mongoose.Schema(
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true,
+      required: true
     },
     postId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Post",
-      required: true,
+      required: true
     },
   },
   { collection: "Comments", timestamps: true }
 );
+
+commentSchema.index({ userId: 1, postId: 1 }, { unique: true });
 
 export const Comment = mongoose.model("Comment", commentSchema);
