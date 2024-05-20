@@ -8,6 +8,9 @@ import {
   UserPost,
   CreateComment,
   AllComments,
+  LikePost,
+  UnLikePost,
+  UserLiked
 } from "../controllers/PostController.js";
 import { userVerification } from "../middlewares/AuthMiddleware.js";
 
@@ -26,4 +29,7 @@ router.route("/updatedpost/:id").get(userVerification, UpdatedPost);
 router.route("/createcomment").post(userVerification, CreateComment);
 router.route("/comments/:id").get(userVerification, AllComments);
 
+router.route("/likepost/:id").post(userVerification, LikePost);
+router.route("/unlikepost/:id").delete(userVerification, UnLikePost);
+router.route("/userliked/:id").get(userVerification, UserLiked)
 export default router;

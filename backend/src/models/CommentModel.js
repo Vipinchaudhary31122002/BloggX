@@ -5,7 +5,7 @@ const commentSchema = new mongoose.Schema(
     comment: {
       type: String,
       required: true,
-      maxlength: 500,
+      maxlength: 250,
     },
     username: {
       type: String,
@@ -14,12 +14,12 @@ const commentSchema = new mongoose.Schema(
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true
+      required: true,
     },
     postId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Post",
-      required: true
+      required: true,
     },
   },
   { collection: "Comments", timestamps: true }

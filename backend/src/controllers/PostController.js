@@ -1,5 +1,7 @@
 import { Post } from "../models/PostModel.js";
 import { Comment } from "../models/CommentModel.js";
+import { Like } from "../models/LikeModel.js";
+
 export const CreatePost = async (req, res) => {
   try {
     // console.log(req.body);
@@ -107,6 +109,56 @@ export const CreateComment = async (req, res) => {
           "Duplicate comment error: User has already commented on this post.",
       });
     }
+    console.error(error);
+  }
+};
+
+export const LikePost = async (req, res) => {
+  try {
+    const like = {
+      postId: req.params.id,
+      userId: req.userdata.id,
+      like: true,
+    };
+    await Like.create(like);
+    res.status(201).json({ message: "post liked", success: true });
+  } catch (error) {
+    if (error.code === 11000) {
+      res.json({
+        message:
+          "Duplicate comment error: User has already commented on this post.",
+      });
+    }
+    console.error(error);
+  }
+};
+
+export const UnLikePost = async (req, res) => {
+  try {
+    const postid = req.params.id;
+    const userid = req.userdata.id;
+    const like = await Like.findOneAndDelete({ postid, userid });
+    if (!like) {
+      return res
+        .status(404)
+        .json({ message: "Like not found", success: false });
+    }
+    res
+      .status(200)
+      .json({ message: "Like removed successfully", success: true });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const UserLiked = async (req, res) => {
+  try {
+    const postid = req.params.id;
+    const userid = req.userdata.id;
+    const userlikedpost = await Like.findOne({ postid: postid, userid: userid });
+    console.log(userlikedpost);
+    res.status(201).json({ ...userlikedpost });
+  } catch (error) {
     console.error(error);
   }
 };
