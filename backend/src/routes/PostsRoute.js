@@ -10,12 +10,14 @@ import {
   AllComments,
   LikePost,
   UnLikePost,
-  UserLiked
+  UserLiked,
 } from "../controllers/PostController.js";
 import { userVerification } from "../middlewares/AuthMiddleware.js";
+// import { upload } from "../app.js";
 
 const router = Router();
 
+// router.route("/createpost").post(userVerification, upload.single('blogimage'), CreatePost);
 router.route("/createpost").post(userVerification, CreatePost);
 
 router.get("/allpost", AllPost);
@@ -31,5 +33,5 @@ router.route("/comments/:id").get(userVerification, AllComments);
 
 router.route("/likepost/:id").post(userVerification, LikePost);
 router.route("/unlikepost/:id").delete(userVerification, UnLikePost);
-router.route("/userliked/:id").get(userVerification, UserLiked)
+router.route("/userliked/:id").get(userVerification, UserLiked);
 export default router;

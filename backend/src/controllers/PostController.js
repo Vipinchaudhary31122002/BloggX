@@ -4,7 +4,9 @@ import { Like } from "../models/LikeModel.js";
 
 export const CreatePost = async (req, res) => {
   try {
-    // console.log(req.body);
+    console.log(req);
+    console.log(req.body);
+    console.log(req.file);
     const post = {
       title: req.body.title,
       content: req.body.content,
@@ -155,7 +157,10 @@ export const UserLiked = async (req, res) => {
   try {
     const postid = req.params.id;
     const userid = req.userdata.id;
-    const userlikedpost = await Like.findOne({ postid: postid, userid: userid });
+    const userlikedpost = await Like.findOne({
+      postid: postid,
+      userid: userid,
+    });
     console.log(userlikedpost);
     res.status(201).json({ ...userlikedpost });
   } catch (error) {

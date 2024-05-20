@@ -10,14 +10,14 @@ const Profile = () => {
   const [inputValue, setInputValue] = useState({
     title: "",
     content: "",
-    img_url: {},
+    img_url: null,
   });
   const { title, content, img_url } = inputValue;
   const resetObject = () => {
     const defaultObject = {
       title: "",
       content: "",
-      img_url: {},
+      img_url: null,
     };
     setInputValue(defaultObject);
   };
@@ -28,20 +28,25 @@ const Profile = () => {
       [name]: value,
     });
   };
-  // const handleFileChange = (e) => {
-  //   console.log(e.target);
-  //   setInputValue({
-  //     ...inputValue,
-  //     img_url: e.target.files[0],
-  //   });
-  // };
+  const handleFileChange = (e) => {
+    setInputValue((prev) => ({
+      ...prev,
+      img_url: e.target.files[0],
+    }));
+  };
   // function for creating post
   const createpost = async (e) => {
     e.preventDefault();
     try {
       if (title.length !== 0) {
+        console.log(inputValue);
+        // const formData = new FormData();
+        // formData.append("title", inputValue.title);
+        // formData.append("content", inputValue.content);
+        // formData.append("file", inputValue.img_url);
         await axios.post(
           "/api/v1/post/createpost",
+          // formData,
           { title, content },
           { withCredentials: true }
         );
@@ -80,7 +85,7 @@ const Profile = () => {
     <div id="ProfileContainer" className="container-fluid">
       <div id="CreatePostForm" className="container">
         {/* form for creating post */}
-        <form onSubmit={createpost}>
+        <form onSubmit={createpost} encType="multipart/form-data">
           <input
             type="text"
             name="title"
