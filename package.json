@@ -1,0 +1,16 @@
+{
+  "name": "bloggx",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "installpackages": "npm run installbackend && npm run installfrontend",
+    "installbackend": " cd backend && npm install",
+    "installfrontend": " cd frontend && npm install",
+    "buildfrontend": "cd frontend && npm run build",
+    "startserver": "cd backend && npm run start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
