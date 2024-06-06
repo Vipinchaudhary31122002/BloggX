@@ -1,3 +1,6 @@
+*{
+  box-sizing: border-box;
+}
 body {
   color: #222;
 }
@@ -9,7 +12,7 @@ img {
 
 main {
   padding: 10px;
-  max-width: 700px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -43,28 +46,58 @@ div.post {
   margin-bottom: 30px;
 }
 
-div.post div.texts h2{
-    margin: 0;
-    font-size: 1.5rem;
+div.post div.texts h2 {
+  margin: 0;
+  font-size: 1.5rem;
 }
 
-div.post p.info{
-    margin: 6px 0;
-    color: #888;
-    font-size: 0.7rem;
-    font-weight: bold;
-    display: flex;
-    gap: 10px;
-    font-size: 1rem;
+div.post p.info {
+  margin: 6px 0;
+  color: #888;
+  font-size: 0.7rem;
+  font-weight: bold;
+  display: flex;
+  gap: 10px;
+  font-size: 1rem;
 }
 
-div.post div.texts p.info a.author{
-    color: #333;
-    text-decoration: none;
-    font-size: 1rem;
+div.post div.texts p.info a.author {
+  color: #333;
+  text-decoration: none;
+  font-size: 1rem;
 }
 
-div.post p.summary{
-    margin: 10px 0;
-    line-height: 1.4rem;
+div.post p.summary {
+  margin: 10px 0;
+  line-height: 1.4rem;
+}
+
+form.login, form.signup {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+input {
+  display: block;
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 10px 10px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  background-color: #eee;
+}
+
+button{
+  width: 100%;
+  display: block;
+  border: 0;
+  border-radius: 10px;
+  background-color: #555;
+  color: #fff;
+  padding: 10px 10px;
+  cursor: pointer;
+}
+
+form h1{
+  text-align: center;
 }
